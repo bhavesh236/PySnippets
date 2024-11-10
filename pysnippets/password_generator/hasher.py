@@ -16,4 +16,20 @@ class Hasher:
             return bcrypt.checkpw(password.encode('utf-8'), hashed.encode('utf-8'))
         except Exception as e:
             logger.error("Error verifying password: %s", str(e))
-            raise 
+            raise
+
+if __name__ == "__main__":
+    hasher = Hasher()
+    
+    # Hash a password
+    password = "my_secure_password"
+    hashed_password = hasher.hash_password(password)
+    print("Hashed Password:", hashed_password)
+
+    # Verify the password
+    is_verified = hasher.verify_password("my_secure_password", hashed_password)
+    print("Password Verified:", is_verified)
+
+    # Attempt to verify with an incorrect password
+    is_verified = hasher.verify_password("wrong_password", hashed_password)
+    print("Password Verified with Wrong Password:", is_verified)
